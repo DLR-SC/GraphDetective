@@ -1,0 +1,69 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: >-
+  Graph Detective - Comprehensive User Interface for
+  Intuitive Graph Exploration and Analysis
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Dominik
+    family-names: Opitz
+    affiliation: German Aerospace Center (DLR)
+    orcid: 'https://orcid.org/0009-0009-1234-6379'
+  - given-names: Andreas
+    family-names: Hamm
+    affiliation: German Aerospace Center (DLR)
+    orcid: 'https://orcid.org/0000-0001-5854-851X'
+  - given-names: Roxanne
+    family-names: El Baff
+    affiliation: German Aerospace Center (DLR)
+    orcid: 'https://orcid.org/0000-0001-6661-8661'
+  - given-names: Jasper
+    family-names: Korte
+    affiliation: German Aerospace Center (DLR)
+    orcid: 'https://orcid.org/0000-0002-5559-8842'
+  - given-names: Tobias
+    family-names: Hecking
+    affiliation: German Aerospace Center (DLR)
+    orcid: 'https://orcid.org/0000-0003-0833-7989'
+  - given-names: Elena
+    family-names: Volkanovska
+    affiliation: Technical University of Darmstadt
+    orcid: ''
+
+repository-code: 'https://github.com/DLR-SC/GraphDetective'
+abstract: >-
+  Graph databases have become ubiquitous in various domains,
+  serving as an efficient storage of complex graph data.
+  Yet, querying such graphs remains challenging,
+  particularly for those unfamiliar with database concepts.
+  This hurdle often necessitates database experts'
+  involvement, leading to decision-making delays and reduced
+  accessibility. We introduce an interface to query ArangoDB
+  databases visually and render the graph data as an
+  interactive 3D visualization. Our interface offers an
+  intuitive entry point for graph data exploration where
+  users can effortlessly conduct ad-hoc queries without
+  needing expertise in writing database queries.
+  Additionally, we offer the option to export graph results
+  and link them to external tools, enabling further
+  analytical capabilities. The code is publicly available on
+  GitHub. A video of the system demonstration is available
+  on Youtube.
+keywords:
+  - graph
+  - visual graph representation
+  - interactive graph exploration
+  - visual query definition
+  - visual query builder
+  - ArangoDB visualization
+  - user interface
+license: MIT
+references:
+ - conference: "The 18th Conference of the European Chapter of the Association for Computational Linguistics (EACL 2024): : System Demonstrations"
+ - year: 2024
+ - month: 3

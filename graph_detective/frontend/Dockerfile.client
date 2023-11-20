@@ -1,0 +1,27 @@
+#FROM node:alpine
+#RUN apk update && apk add bash
+#COPY package.json ./
+#COPY package-lock.json ./
+#WORKDIR ./
+
+#COPY ./ ./
+#RUN npm install --legacy-peer-deps
+#EXPOSE 3000
+#CMD ["npm", "run", "start"]
+
+FROM node:alpine
+
+# set the working direction
+WORKDIR /app
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install app dependencies
+COPY package.json ./
+COPY package-lock.json ./
+COPY ./ ./
+RUN npm install --legacy-peer-deps
+
+# start app
+CMD ["npm", "start"]
