@@ -19,18 +19,15 @@
 
 This repository provides the code for our Demonstration Paper "Graph Detective - Comprehensive User Interface for Intuitive Graph Exploration and Analysis", submitted to [EACL2024](https://2024.eacl.org/calls/demos/). Video of system demonstration can be found on [YouTube](https://youtu.be/xUkV5h98lm4).
 
-> Graph databases have become ubiquitous in various domains, serving as
-> an efficient storage of complex graph data. Yet, querying such graphs
-> remains challenging, particularly for those unfamiliar with database
-> concepts. This hurdle often necessitates database experts'
-> involvement, leading to decision-making delays and reduced
-> accessibility. We introduce an interface to query ArangoDB databases
-> visually and render the graph data as an interactive 3D visualization.
-> Our interface offers an intuitive entry point for graph data
-> exploration where users can effortlessly conduct ad-hoc queries
-> without needing expertise in writing database queries. Additionally,
-> we offer the option to export graph results and link them to external
-> tools, enabling further analytical capabilities.
+> Graph databases are used across several domains due to the intuitive structure of graphs.
+> Yet, querying such graphs requires database
+> experts’ involvement, reducing accessibility to
+> non-experts. To address this issue, we present
+> GraphDetective, a web interface that offers an
+> intuitive entry point for graph data exploration,
+> where users can effortlessly create queries visually, eliminating the need for expertise in query
+> writing. After processing, the resulting graph
+> data is then rendered in an interactive 3D visualization. 
 
 ![GraphDetective Interface](./graph_detective/images/GD_Screenshot_InputArea.PNG?raw=true)
 ![GraphDetective Graph Result](./graph_detective/images/GD_Screenshot_DisplayArea_1.PNG?raw=true)
