@@ -17,7 +17,7 @@
 </p>
 
 
-This repository provides the code for our Demonstration Paper "Graph Detective - Comprehensive User Interface for Intuitive Graph Exploration and Analysis" [EACL2024](https://2024.eacl.org/calls/demos/). Video of system demonstration can be found on [YouTube](https://youtu.be/xUkV5h98lm4).
+This repository provides the code for our Demonstration Paper "Graph Detective - Comprehensive User Interface for Intuitive Graph Exploration and Analysis", submitted to [EACL2024](https://2024.eacl.org/calls/demos/). Video of system demonstration can be found on [YouTube](https://youtu.be/xUkV5h98lm4).
 
 > Graph databases have become ubiquitous in various domains, serving as
 > an efficient storage of complex graph data. Yet, querying such graphs
