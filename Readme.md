@@ -101,26 +101,6 @@ The backend requires a total of four additional, distinct configuration files in
 > `}`
 
 
-
-## Citation
-If you use GraphDetective as part of your work or publication, please cite us using 
-
-    @inproceedings{el-baff-etal-2023-corpus,
-      title = "",
-      author = "<last>, <first>  and
-      <last>, <first>  and
-      <last>, <first>  and
-      <last>, <first>  and
-      <last>, <first>  and",
-      booktitle = "The 18th Conference of the European Chapter of the Association for Computational Linguistics: System Demonstrations",
-      month = nov,
-      year = "2023",
-      address = "St Julian’s STJ 3391, Malta",
-      publisher = "Association for Computational Linguistics",
-      url = "https://2024.eacl.org/calls/demos/",
-      pages = ""
-    }
-
 ## Basic Usage
 ### Define a QGV
 A *Query Graph Visualization* is a visual graph structure that you want to query from the database. To define it, add collections onto the respective canvas area on the top and connect them as desired. Then hit execute.

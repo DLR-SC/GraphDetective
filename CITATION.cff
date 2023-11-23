@@ -30,10 +30,6 @@ authors:
     family-names: Hecking
     affiliation: German Aerospace Center (DLR)
     orcid: 'https://orcid.org/0000-0003-0833-7989'
-  - given-names: Elena
-    family-names: Volkanovska
-    affiliation: Technical University of Darmstadt
-    orcid: ''
 
 repository-code: 'https://github.com/DLR-SC/GraphDetective'
 abstract: >-
@@ -63,7 +59,3 @@ keywords:
   - ArangoDB visualization
   - user interface
 license: MIT
-references:
- - conference: "The 18th Conference of the European Chapter of the Association for Computational Linguistics (EACL 2024): : System Demonstrations"
- - year: 2024
- - month: 3
