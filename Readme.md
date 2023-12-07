@@ -35,11 +35,18 @@ This repository provides the code for our Demonstration Paper "Graph Detective -
 ![Ontology View](./graph_detective/images/Ontology_GIF.gif)
 ###### Query Graph Visualization
 ![GraphDetective Interface](./graph_detective/images/GD_Screenshot_InputArea.PNG?raw=true)
+###### Defining a QGV
 ![QGV 1](./graph_detective/images/QGV_1_GIF.gif)
+
+###### Applying node filters
 ![QGV 2](./graph_detective/images/QGV_2_GIF.gif)
+
 ###### Query Graph Result
 ![GraphDetective Graph Result](./graph_detective/images/GD_Screenshot_DisplayArea_1.PNG?raw=true)
+###### Navigating a graph result
 ![Graph Result 1](./graph_detective/images/Graph_1_GIF.gif)
+
+###### Display Modes
 ![Graph Result 2](./graph_detective/images/Graph_2_GIF.gif)
 
 ## Installation
