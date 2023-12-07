@@ -1,4 +1,5 @@
 
+
 <h1 align="center">Welcome to GraphDetective </h1>
 <p align="center">
   <a href="https://img.shields.io/badge/Made%20with-Python-1f425f.svg">
@@ -29,8 +30,17 @@ This repository provides the code for our Demonstration Paper "Graph Detective -
 > writing. After processing, the resulting graph
 > data is then rendered in an interactive 3D visualization. 
 
+##### UI Interface
+###### Ontology View
+![Ontology View](./graph_detective/images/Ontology_GIF.gif)
+###### Query Graph Visualization
 ![GraphDetective Interface](./graph_detective/images/GD_Screenshot_InputArea.PNG?raw=true)
+![QGV 1](./graph_detective/images/QGV_1_GIF.gif)
+![QGV 2](./graph_detective/images/QGV_2_GIF.gif)
+###### Query Graph Result
 ![GraphDetective Graph Result](./graph_detective/images/GD_Screenshot_DisplayArea_1.PNG?raw=true)
+![Graph Result 1](./graph_detective/images/Graph_1_GIF.gif)
+![Graph Result 2](./graph_detective/images/Graph_2_GIF.gif)
 
 ## Installation
 The application is divided into **Frontend** and **Backend**. They communicate via HTTPS and need to be installed and run individually. Furthermore, a **ArangoDB database** must be available.
