@@ -49,6 +49,9 @@ This repository provides the code for our Demonstration Paper "Graph Detective -
 ###### Display Modes
 ![Graph Result 2](./graph_detective/images/Graph_2_GIF.gif)
 
+###### Individual Node Expansion
+![Expanding Nodes](./graph_detective/images/Graph_Expansion_GIF.gif)
+
 ## Installation
 The application is divided into **Frontend** and **Backend**. They communicate via HTTPS and need to be installed and run individually. Furthermore, a **ArangoDB database** must be available.
 
