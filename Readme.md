@@ -8,7 +8,9 @@
     <a href="https://img.shields.io/badge/Made%20with-React-1f425f.svg">
     <img src="https://img.shields.io/badge/Made%20with-React-1f425f.svg" alt="Badge: Made with React"/>
   </a>
-<a href="#"><img src="https://img.shields.io/badge/DOI-Under%20Review-1f425f.svg" alt="DOI"></a>
+
+<a href="https://zenodo.org/doi/10.5281/zenodo.10285971"><img src="https://zenodo.org/badge/721157619.svg" alt="DOI"></a>
+
  <a href="https://github.com/DLR-SC/corpus-annotation-graph-builder/blob/master/LICENSE">
     <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-yellow.svg" target="_blank" />
   </a>
