@@ -28,7 +28,7 @@ This repository provides the code for our Paper "Graph Detective - Comprehensive
 ###### Ontology View
 ![Ontology View](./graph_detective/images/Ontology.gif)
 ###### Query Graph Visualization
-![GraphDetective Interface](./graph_detective/images/GD_Screenshot_InputArea?raw=true)
+![GraphDetective Interface](./graph_detective/images/GD_Screenshot_InputArea.png?raw=true)
 ###### Defining a QGV
 ![QGV 1](./graph_detective/images/QGV_1_GIF.gif)
 
@@ -36,7 +36,7 @@ This repository provides the code for our Paper "Graph Detective - Comprehensive
 ![QGV 2](./graph_detective/images/QGV_2_GIF.gif)
 
 ###### Query Graph Result
-![GraphDetective Graph Result](./graph_detective/images/GD_Screenshot_DisplayArea_1.PNG?raw=true)
+![GraphDetective Graph Result](./graph_detective/images/GD_Screenshot_InputArea.PNG?raw=true)
 ###### Navigating a graph result
 ![Graph Result 1](./graph_detective/images/Graph_2.gif)
 
