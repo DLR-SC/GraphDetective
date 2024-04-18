@@ -10,33 +10,43 @@ const keysToExclude = ['val', '__threeObj', '__lineObj', '__curve', 'color', 'in
 
 export const NodeView = ({ leftClickElement, setLeftClickElement }) => {
 
+    console.log("Left Click Element: ", leftClickElement)
     if (leftClickElement === null) {
         return <div></div>
     }
 
-    const filterKeysRecursively = (data) => {
+    const filterKeysTopLevel = (data) => {
         if (typeof data !== 'object' || data === null) {
             return data;
         }
-
+    
         if (Array.isArray(data)) {
-            return data.map(filterKeysRecursively);
+            return data.reduce((result, value) => {
+                if (!keysToExclude.includes(value)) {
+                    result.push(value);
+                }
+                return result;
+            }, []);
         }
-
+    
         return Object.keys(data).reduce((result, key) => {
             if (!keysToExclude.includes(key)) {
-                result[key] = filterKeysRecursively(data[key]);
+                if (key === 'source' || key === 'target') {
+                    // If key is "source" or "target", apply filtering within the object
+                    result[key] = filterKeysTopLevel(data[key], keysToExclude);
+                } else {
+                    result[key] = data[key];
+                }
             }
             return result;
         }, {});
     };
 
     // Filter out excluded keys
-    const filteredNode = filterKeysRecursively(leftClickElement);
+    const filteredNode = filterKeysTopLevel(leftClickElement);
 
     const source = leftClickElement.source ? leftClickElement.source.collection : null
     const target = leftClickElement.target ? leftClickElement.target.collection : null
-    console.log("S: ", source)
 
     return (
         <div >

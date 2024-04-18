@@ -211,7 +211,7 @@ export const PathFlowModeller = (
               <div>
                 {pathNodes.length > 0 ? (
                   <div>
-                    <Typography sx={{ p: 2 }}>Your current flow will match the following paths:</Typography>
+                    <Typography sx={{ p: 2 }}>Your current flow will find the following paths:</Typography>
                     <List>
                       {pathNodes.map((path, index) => (
                         <ListItem key={index}>

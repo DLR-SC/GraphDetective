@@ -20,6 +20,7 @@ export const GraphTabs = ({ selectedTab, setSelectedTab }) => {
                 textColor="primary"
                 indicatorColor="primary"
                 aria-label="secondary tabs example"
+                style={{display: "inline-flex"}}
             >
                 <Tab
                     style={style}

@@ -13,21 +13,26 @@ export const NodeEditorItem = ({
 }: { filterId: string, property: string | number, operator: string, value: string | number | Date, onDelete: (filterId: string) => {} }) => {
 
     return (
-                <Stack
-                    direction="row"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    spacing={2}
-                >
-                    <FilterAltIcon fontSize="inherit" />
-                    <div><b>{property}</b>:</div>
-                    <div><i>{operator}</i></div>
-                    <div><i>{value.toString()}</i></div>
-                    <div>
-                        <IconButton aria-label="delete" size="small" onClick={() => onDelete(filterId)}>
-                            <DeleteForeverIcon fontSize="inherit" />
-                        </IconButton>
-                    </div>
-                </Stack>
+        <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={2}
+        >
+            <FilterAltIcon fontSize="inherit" />
+            <div><b>{property}</b>:</div>
+            <div><i>{operator}</i></div>
+            <div style={{
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                maxWidth: "50%",
+            }}><i>{value.toString()}</i></div>
+            <div>
+                <IconButton aria-label="delete" size="small" onClick={() => onDelete(filterId)}>
+                    <DeleteForeverIcon fontSize="inherit" />
+                </IconButton>
+            </div>
+        </Stack >
     )
 }

@@ -29,15 +29,12 @@ function SimpleDialog(props: SimpleDialogProps) {
   const [edgesFile, setEdgesFile] = useState(undefined); // edges file
   const [collectionMapFile, setCollectionMapFile] = useState(undefined); // collection map file
   const [collectionViewsFile, setCollectionViewsFile] = useState(undefined); // collection views
+  const [configFile, setConfigFile] = useState(undefined); // single configuration file
 
   const [changesLoading, setChangesLoading] = useState<boolean>(false);
 
   const allFilesUploaded = () => {
-    if (databaseConnectionFile !== undefined &&
-      edgesFile !== undefined &&
-      collectionMapFile !== undefined &&
-      collectionViewsFile !== undefined
-    ) {
+    if (configFile !== undefined) {
       return true;
     }
     return false;
@@ -56,12 +53,7 @@ function SimpleDialog(props: SimpleDialogProps) {
     // Send the data to Backend
     const modify_database = async () => {
       try {
-        const result = await MODIFY_DATABASE_CONNECTION(
-          databaseConnectionFile,
-          edgesFile,
-          collectionMapFile,
-          collectionViewsFile
-        );
+        const result = await MODIFY_DATABASE_CONNECTION(configFile);
         if (result.result) {
           setChangesLoading(false)
           // Close the dialog
@@ -99,6 +91,10 @@ function SimpleDialog(props: SimpleDialogProps) {
   const handleUpload_CollectionViews = (filedata: any) => {
     setCollectionViewsFile(filedata)
   }
+  // Handler for uploading the single configuration file
+  const handleUpload_Config = (filedata: any) => {
+    setConfigFile(filedata)
+  }
 
   return (
     <Dialog onClose={handleClose} open={open}>
@@ -116,68 +112,65 @@ function SimpleDialog(props: SimpleDialogProps) {
           Note: while files you provide here are not stored on the server, they may be
           transmitted over the network in plaintext.
         </Typography>
-        {/* Upload Content 1 */}
-        <div className="uploadContainer">
-          <Typography variant="subtitle1" display="block" gutterBottom>
-            Database Config
-          </Typography>
-          <Typography variant="subtitle2" gutterBottom>
-            <i>JSON file containing the following key/value pairs: <br />
-            &#123; <br />
-            <b>"DB_HOST"</b>: &lt;URL of the database, starting with http:// or https://&gt; <br />
-            <b>"DB_PORT"</b>: &lt;port number&gt; <br />
-            <b>"DB_NAME"</b>: &lt;name of the database&gt; <br />
-            <b>"DB_USER"</b>: &lt;name of the user&gt; <br />
-            <b>"DB_PASSWORD"</b>: &lt;password&gt; <br />
-            <b>"DB_GRAPH"</b>: &lt;graph name in the database&gt; <br />
-            <b>"DB_LABEL_ATTRIBUTE"</b>: &lt;property name that should be used to display the collection in the graph below (e.g. "name" or "_id")&gt; <br />
-            &#125;
-            </i>
-          </Typography>
-          <DropzoneComponent onUpload={handleUpload_Database} />
-        </div>
 
-        {/* Upload Content 2 */}
+        {/* Upload Single Config File */}
         <div className="uploadContainer">
           <Typography variant="subtitle1" display="block" gutterBottom>
-            Graph Edges
+            Configuration File
           </Typography>
           <Typography variant="subtitle2" gutterBottom>
-            <i>A JSON file containing all the edges to be displayed in the ontology graph below. Only edges
+            <i>A single JSON file conaining all configuration options.</i><br />
+            <Typography variant="subtitle2" gutterBottom>
+              <DropzoneComponent
+                onUpload={handleUpload_Config}
+                placeholder="Drag JSON here or click to open explorer"
+                filetype="json"
+                showIcon={true}
+              />
+
+              <br />
+              <mark>"db_config":</mark> (mandatory) <br />
+              <i>JSON file containing the following key/value pairs: <br />
+                &#123; <br />
+                <b>"DB_HOST"</b>: &lt;URL of the database, starting with http:// or https://&gt; <br />
+                <b>"DB_PORT"</b>: &lt;port number&gt; <br />
+                <b>"DB_NAME"</b>: &lt;name of the database&gt; <br />
+                <b>"DB_USER"</b>: &lt;name of the user&gt; <br />
+                <b>"DB_PASSWORD"</b>: &lt;password&gt; <br />
+                <b>"DB_GRAPH"</b>: &lt;graph name in the database&gt; <br />
+                <b>"DB_LABEL_ATTRIBUTE"</b>: &lt;property name that should be used to display the collection in the graph below (e.g. "name" or "_id")&gt; <br />
+                &#125;
+              </i>
+            </Typography>
+            <small>Example: &#123;"CollectionNameInDatabase": "ViewName"&#125;, ...</small>
+          </Typography>
+
+          <Typography variant="subtitle2" gutterBottom>
+            <br />
+            <mark>"collection_map":</mark> (optional) <br />
+            <i>A dictionary that contains a 1:1 mapping of the collection names as they appear in the database
+              and the names that should be displayed to the user in the ontology graph below. All collections must be specified here!</i><br />
+            <small>Example: &#123;"CollectionNameInDatabase": "Human Readable Collection Name&#125;, ...</small>
+          </Typography>
+
+          <Typography variant="subtitle2" gutterBottom>
+            <br />
+            <mark>"edges":</mark> (optional) <br />
+            <i>A dictionary that contains all the edges to be displayed in the ontology graph below. Only edges
               contained in this file are displayed. The file should contain source collection names as keys
               and an array of target collection names as values.</i><br />
             <small>Example: &#123;"SourceNode": &#91;"SomeTargetCollection", "OtherTargetCollection"&#93;&#125;, ...</small>
           </Typography>
-          <DropzoneComponent onUpload={handleUpload_Edges} />
-        </div>
 
-        {/* Upload Content 3 */}
-        <div className="uploadContainer">
-          <Typography variant="subtitle1" display="block" gutterBottom>
-            Collection Names
-          </Typography>
           <Typography variant="subtitle2" gutterBottom>
-            <i>A JSON file that contains a 1:1 mapping of the collection names as they appear in the database
-              and the names that should be displayed to the user in the ontology graph below. All collections must be specified here!</i><br />
-            <small>Example: &#123;"CollectionNameInDatabase": "Human Readable Collection Name&#125;, ...</small>
-          </Typography>
-          <DropzoneComponent onUpload={handleUpload_CollectionMap} />
-        </div>
-
-        {/* Upload Content 4 */}
-        <div className="uploadContainer">
-          <Typography variant="subtitle1" display="block" gutterBottom>
-            Collection Views
-          </Typography>
-          <Typography variant="subtitle2" gutterBottom>
-            <i>JSON file containing all custom views for each collection to be utilized during querying. A collection
-            can only be assigned to a single view. The file contains the collection's database name as key and the corresponding
-            display name as value.</i><br />
+            <br />
+            <mark>"collection_views":</mark> (optional) <br />
+            <i>A dictionary that contains all custom views for each collection to be utilized during querying. A collection
+              can only be assigned to a single view. The file contains the collection's database name as key and the corresponding
+              display name as value.</i><br />
             <small>Example: &#123;"CollectionNameInDatabase": "ViewName"&#125;, ...</small>
           </Typography>
-          <DropzoneComponent onUpload={handleUpload_CollectionViews} />
         </div>
-
       </DialogContent>
 
       {/* Dialog Actions */}
@@ -189,13 +182,18 @@ function SimpleDialog(props: SimpleDialogProps) {
         ) : (
 
           allFilesUploaded() ? (
-            <Button autoFocus onClick={saveChanges}>
-              Save changes
+            <Button
+              autoFocus
+              variant="outlined"
+              onClick={saveChanges}
+              className="dlrButton"
+            >
+              Save Changes
             </Button>
           ) : (
             <a style={{ display: 'flex', alignContent: 'center', justifyContent: 'center' }}>
               <HourglassBottomIcon fontSize='small' />
-              Upload all files before saving changes ...
+              Awaiting configuration file - Upload file ...
             </a>
           )
 
@@ -233,11 +231,18 @@ export const EditDatabaseDialog = ({ title, icon }: { title: string, icon: any }
     <div>
       <small style={{ color: "darkgray" }}>Connected to <i><a href={currentBackendURL} target="_blank">{currentBackendURL}</a></i></small>
       <br />
-      <Chip
+      {/* <Chip
         label={<b>{title}</b>}
         onClick={handleClickOpen}
         icon={icon}
-      />
+      /> */}
+      <Button
+        variant="outlined"
+        onClick={handleClickOpen}
+        className="dlrButton"
+      >
+        {title}
+      </Button>
       <SimpleDialog
         open={open}
         onClose={handleClose}

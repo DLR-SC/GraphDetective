@@ -63,7 +63,7 @@
 
 .tabContentContainer {
   padding: 1em 0em 1em 0em;
-  margin-right: 1em;
+  margin-right: 4.5em;
 }
 
 .collection_list {
@@ -382,4 +382,15 @@
   padding: 1em;
   border-radius: 4px;
   margin-bottom: 1em;
+}
+
+.nodeHint {
+  color: lightgray;
+  font-style: italic;
+  display: inline-flex;
+  align-items: center;
+}
+
+#currentNode {
+  margin-left: 10em;
 }

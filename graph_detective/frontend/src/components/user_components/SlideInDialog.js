@@ -21,7 +21,12 @@ export const SlideInDialog = ({ open, handleClose, loadFlow }) => {
             >
                 <DialogTitle>{"Load Flow"}</DialogTitle>
                 <DialogContent>
-                    <DropzoneComponent onUpload={loadFlow} />
+                    <DropzoneComponent
+                    onUpload={loadFlow}
+                    placeholder="Drag JSON here or click to open explorer"
+                    filetype="json"
+                    showIcon={true}
+                />
                 </DialogContent>
             </Dialog>
         </div>

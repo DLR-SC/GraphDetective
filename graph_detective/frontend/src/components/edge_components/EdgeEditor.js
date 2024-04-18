@@ -172,6 +172,7 @@ export const EdgeEditor = ({
                                                         setSelectedValue={setSelectedValue}
                                                         valueOptions={[]}
                                                         selectedAttributeType={selectedAttributeType}
+                                                        selectedOperator={selectedOperator}
                                                     />
                                                 </div>
                                                 <div>

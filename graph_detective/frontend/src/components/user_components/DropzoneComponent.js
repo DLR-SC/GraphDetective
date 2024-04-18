@@ -3,7 +3,13 @@ import { useDropzone } from 'react-dropzone';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 
-export const DropzoneComponent = ({ onUpload }) => {
+export const DropzoneComponent = ({
+    onUpload,
+    placeholder,
+    filetype,
+    showIcon,
+    padding="1em"
+ }) => {
     const [isUploaded, setIsUploaded] = useState(false);
     const [uploadedFilename, setUploadedFileName] = useState("");
 
@@ -16,8 +22,14 @@ export const DropzoneComponent = ({ onUpload }) => {
 
         reader.onload = (e) => {
             try {
-                // Parse the content of the file into a JSON object
-                const parsedData = JSON.parse(e.target.result);
+                let parsedData;
+                if (filetype === "json") {
+                    // Parse the content of the file into a JSON object
+                    parsedData = JSON.parse(e.target.result);
+                } else if (filetype === "txt") {
+                    parsedData = e.target.result // This is the content of the txt file as a string
+                    console.log(parsedData)
+                }
                 
                 // Call the onUpload function with the parsed JSON object
                 onUpload(parsedData);
@@ -25,7 +37,7 @@ export const DropzoneComponent = ({ onUpload }) => {
                 setUploadedFileName(filename)
             } catch (error) {
                 setIsUploaded(false);
-                setUploadedFileName("File type not supported. Please upload a JSON file.")
+                setUploadedFileName("File type not supported. Expected file of type " + filetype)
             }
         };
 
@@ -47,17 +59,17 @@ export const DropzoneComponent = ({ onUpload }) => {
                 {
                     "border": "1px dashed black",
                     "borderRadius": "4px",
-                    "padding": "1em",
+                    "padding": padding,
                     "cursor": "pointer",
-                }}>Drag JSON or click
+                }}>{placeholder}
                 {isUploaded ? (
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'left' }}>
-                    <DoneIcon fontSize='small' style={{color: "green"}} />
+                    {showIcon && <DoneIcon fontSize='small' style={{color: "green"}} /> }
                     <i>{uploadedFilename} </i>
                     </div>
                 ) : (
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'left' }}>
-                    <CloseIcon fontSize='small' style={{color: "red"}} />
+                    {showIcon && <CloseIcon fontSize='small' style={{color: "red"}} /> }
                     <i>{uploadedFilename} </i>
                     </div>
                 )}

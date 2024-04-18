@@ -65,6 +65,50 @@ const useStore = create<RFState>((set, get) => ({
       edges: applyEdgeChanges(changes, get().edges),
     });
   },
+  isNodeSource: (nodeId: string) => {
+    /*
+    A node x is a source node if all of the following conditions are met:
+      1.: the list of edges is non-empty,
+      1.: there exists an edge that has x set as its "source" property
+      2.: there is no edge that has x set as its "target" property
+    */
+
+    // 1.:
+    if (get().edges.length === 0) {
+      return false;
+    }
+    // 2.:
+    if(!get().edges.some(edge => edge.source === nodeId)) {
+      return false;
+    }
+    // 3.:
+    if (get().edges.some(edge => edge.target === nodeId)) {
+      return false;
+    }
+    return true;
+  },
+  isNodeTarget: (nodeId: string) => {
+    /*
+    A node x is a target node if all of the following conditions are met:
+      1.: the list of edges is non-empty,
+      1.: there exists an edge that has x set as its "target" property
+      2.: there is no edge that has x set as its "source" property
+    */
+
+    // 1.:
+    if (get().edges.length === 0) {
+      return false;
+    }
+    // 2.:
+    if(!get().edges.some(edge => edge.target === nodeId)) {
+      return false;
+    }
+    // 3.:
+    if (get().edges.some(edge => edge.source === nodeId)) {
+      return false;
+    }
+    return true;
+  },
   onConnect: (connection: Connection) => {
     // Create updated Edge object
     const conn = {

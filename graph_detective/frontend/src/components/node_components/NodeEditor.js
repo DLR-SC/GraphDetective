@@ -41,6 +41,10 @@ export const NodeEditor = ({
     const [selectedValue, setSelectedValue] = useState('');
 
     useEffect(() => {
+        console.log("Type of value: ", typeof selectedValue)
+    }, [selectedValue])
+
+    useEffect(() => {
         setSelectedAttribute(null);
         setAttributeOptions([]);
         setSelectedAttributeType(null);
@@ -203,6 +207,7 @@ export const NodeEditor = ({
                                                 setSelectedValue={setSelectedValue}
                                                 valueOptions={[]}
                                                 selectedAttributeType={selectedAttributeType}
+                                                selectedOperator={selectedOperator}
                                             />
                                         </div>
                                         <div>

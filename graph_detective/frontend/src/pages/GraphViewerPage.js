@@ -5,6 +5,7 @@ import { GraphTabs } from '../components/graph_components/GraphTabs';
 import { TabContentContainer } from '../components/user_components/TabContentContainer';
 import { ForceGraph } from '../components/graph_components/ForceGraph';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import { CollectionList } from '../components/graph_components/CollectionList';
 import {
     GET_META_GRAPH,
@@ -19,7 +20,7 @@ import { MessageContext } from '../contexts/MessageContext';
 import { CollectionGrid } from '../components/collection_analyzer_components/CollectionGrid.tsx';
 import { NodeEditor } from '../components/node_components/NodeEditor.js';
 import { EdgeEditor } from '../components/edge_components/EdgeEditor';
-import { ForceGraphLegend } from '../components/user_components/ForceGraphLegend';
+import { ForceGraphLegend, NodeEntry } from '../components/user_components/ForceGraphLegend';
 import { ForceGraphExport } from '../components/user_components/ForceGraphExport';
 import Stack from '@mui/material/Stack';
 import { NodeView } from '../components/user_components/NodeView';
@@ -55,11 +56,12 @@ export const GraphViewerPage = () => {
     const [linkA, setLinkA] = useState(undefined);
     const [linkB, setLinkB] = useState(undefined);
     const linkWidth = 1;
-    const canvasWidth = screenWidth * 0.85
+    const canvasWidth = screenWidth * 0.92
     const canvasHeight = 700
     const backgroundColor = "#ececec" // #ececec, #ececec
-    const nodeResolution = 12
+    const nodeResolution = 20
     const linkResolution = 8
+    const [hoveredNode, setHoveredNode] = React.useState(undefined);
 
     // For Alert
     const [open, setOpen] = React.useState(false);
@@ -127,6 +129,11 @@ export const GraphViewerPage = () => {
 
         }
     };
+
+    const onItemHover = (item) => {
+        setHoveredNode(item);
+    }
+
 
     // Handles the click inside the Collection List in order to add a new node to the Graph Modeller
     const handleCollectionClick = (selectedItem) => {
@@ -216,14 +223,16 @@ export const GraphViewerPage = () => {
             }
         } catch (error) {
             setIsFlowLoading(false)
-            if (error.response.status === 444) {
-                displayUserMessage("The defined graph contains unconnected subgraphs or nodes, which is currently not supported. Please make sure that the graph is connected so that a path exists between any pair of nodes.", "error")
-            } else if (error.response.status === 445) {
-                displayUserMessage("The defined graph contains invalid edges. Invalid edges are marked with an exclamation mark. Please make sure that all edges comply to the graph ontology.", "error")
-            } else if (error.response.status === 446) {
-                displayUserMessage("The defined graph is empty. Please define a graph.", "error")
-            } else if (error.response.status === 410) {
-                displayUserMessage("Query cancelled.", "warning")
+            if (error.response !== undefined) {
+                if (error.response.status === 444) {
+                    displayUserMessage("The defined graph contains unconnected subgraphs or nodes, which is currently not supported. Please make sure that the graph is connected so that a path exists between any pair of nodes.", "error")
+                } else if (error.response.status === 445) {
+                    displayUserMessage("The defined graph contains invalid edges. Invalid edges are marked with an exclamation mark. Please make sure that all edges comply to the graph ontology.", "error")
+                } else if (error.response.status === 446) {
+                    displayUserMessage("The defined graph is empty. Please define a graph.", "error")
+                } else if (error.response.status === 410) {
+                    displayUserMessage("Query cancelled.", "warning")
+                }
             } else {
                 console.error(error);
                 displayUserMessage("An error occured while loading the graph data. Please try again.", "error")
@@ -409,6 +418,7 @@ export const GraphViewerPage = () => {
                                     onNodeRightClick={onNodeRightClick}
                                     onLinkLeftClick={onLinkLeftClick}
                                     onLinkRightClick={onLinkRightClick}
+                                    onItemHover={() => {}}
                                     textMode={1}
                                     labelProp={labelProp}
                                     linkWidth={linkWidth}
@@ -439,53 +449,61 @@ export const GraphViewerPage = () => {
                                                     <div><b>Edges:</b> {formatNumberWithDot(queryStats.edgeCount)}</div>
                                                     <div><b>Execution Time:</b> {getFormattedTime(queryStats.executionTime)}</div>
                                                 </Stack>
-                                                <Stack
-                                                    direction="row"
-                                                    justifyContent="center"
-                                                    alignItems="center"
-                                                    spacing={2}
-                                                >
-                                                    <Autocomplete
-                                                        options={[
-                                                            "Outwards-radially",
-                                                            "Inwards-radially",
-                                                            "Top-down",
-                                                            "Bottom-up",
-                                                            "Left-right",
-                                                            "Right-left",
-                                                            "Near-to-far",
-                                                            "Far-to-near",
-                                                            "Default"]}
-                                                        value={dagMode}
-                                                        onChange={(event, newValue) => {
-                                                            setDagMode(newValue)
-                                                        }}
-                                                        sx={{ width: 200 }}
-                                                        renderInput={(params) => (
-                                                            <TextField {...params} label={"Mode"} variant="standard" />
-                                                        )}
-                                                    />
-                                                    <TextField
-                                                        id="nodeDistance"
-                                                        label="Node Distance"
-                                                        type="number"
-                                                        InputLabelProps={{
-                                                            shrink: true,
-                                                        }}
-                                                        value={nodeDistance}
-                                                        onChange={(event, newValue) => {
-                                                            setNodeDistance(event.target.value)
-                                                        }}
-                                                        variant="standard"
-                                                    />
-                                                    <ForceGraphExport graphData={objectGraphData} />
-                                                    {loadingExpandedNodes &&
-                                                        <div id="object_graph_loading">
-                                                            Expanding nodes ...
-                                                            <LinearProgress />
-                                                        </div>
-                                                    }
-                                                </Stack>
+
+                                                <div>
+                                                    <Stack
+                                                        direction="row"
+                                                        justifyContent="flex-start"
+                                                        alignItems="center"
+                                                        spacing={2}
+                                                    >
+                                                        <Autocomplete
+                                                            options={[
+                                                                "Outwards-radially",
+                                                                "Inwards-radially",
+                                                                "Top-down",
+                                                                "Bottom-up",
+                                                                "Left-right",
+                                                                "Right-left",
+                                                                "Near-to-far",
+                                                                "Far-to-near",
+                                                                "Default"]}
+                                                            value={dagMode}
+                                                            onChange={(event, newValue) => {
+                                                                setDagMode(newValue)
+                                                            }}
+                                                            sx={{ width: 200 }}
+                                                            renderInput={(params) => (
+                                                                <TextField {...params} label={"View Mode"} variant="standard" />
+                                                            )}
+                                                        />
+                                                        <TextField
+                                                            id="nodeDistance"
+                                                            label="Node Distance"
+                                                            type="number"
+                                                            InputLabelProps={{
+                                                                shrink: true,
+                                                            }}
+                                                            value={nodeDistance}
+                                                            onChange={(event, newValue) => {
+                                                                setNodeDistance(event.target.value)
+                                                            }}
+                                                            variant="standard"
+                                                        />
+                                                        <ForceGraphExport graphData={objectGraphData} />
+                                                        {loadingExpandedNodes &&
+                                                            <div id="object_graph_loading">
+                                                                Expanding nodes ...
+                                                                <LinearProgress />
+                                                            </div>
+                                                        }
+                                                        {hoveredNode && (hoveredNode.id || hoveredNode._id) && // .id is for nodes, ._id is for edges
+                                                            <div id="currentNode">
+                                                                <NodeEntry text={hoveredNode.id ? hoveredNode.id : hoveredNode._id} color={hoveredNode.color} />
+                                                            </div>
+                                                        }
+                                                    </Stack>
+                                                </div>
                                             </Stack>
                                         ) : (
                                             <div></div>
@@ -506,6 +524,7 @@ export const GraphViewerPage = () => {
                                                     onNodeRightClick={onNodeRightClick}
                                                     onLinkLeftClick={onLinkLeftClick}
                                                     onLinkRightClick={onLinkRightClick}
+                                                    onItemHover={onItemHover}
                                                     textMode={0}
                                                     labelProp={labelProp}
                                                     linkWidth={linkWidth}
@@ -513,7 +532,7 @@ export const GraphViewerPage = () => {
                                                     dagMode={dagMode}
                                                     nodeDistance={nodeDistance}
                                                 />
-                                                <ForceGraphLegend graphData={objectGraphData}/>
+                                                <ForceGraphLegend graphData={objectGraphData} />
                                             </div>
                                             <NodeView leftClickElement={leftClickElement} setLeftClickElement={setLeftClickElement} />
                                         </Stack>

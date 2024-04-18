@@ -14,11 +14,12 @@ import { TransitionGroup } from 'react-transition-group';
 import { GET_COLLECTIONS } from '../../backend/services/collection.tsx';
 
 const Demo = styled('div')(({ theme }) => ({
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.paper
 }));
 
 export const CollectionList = ({ handleCollectionClick }) => {
     const [collections, setCollections] = useState([]);
+    const [showHint, setShowHint] = useState(false);
 
     // Getting collections to display in the list
     useEffect(() => {
@@ -33,6 +34,16 @@ export const CollectionList = ({ handleCollectionClick }) => {
 
         getCollections();
     }, []);
+
+    useEffect(() => {
+        if (Array.isArray(collections)) {
+            if (collections.length > 0) {
+                setShowHint(false);
+            } else {
+                setShowHint(true);
+            }
+        }
+    }, [collections])
 
 
     return (
@@ -52,7 +63,8 @@ export const CollectionList = ({ handleCollectionClick }) => {
                         '& ul': { padding: 0 },
                     }}>
                         <TransitionGroup>
-                            {
+
+                            {(collections !== null && Array.isArray(collections)) && collections.length > 0 &&
                                 collections.map((item, index) => (
                                     <Collapse key={item}>
                                         <ListItem
@@ -63,7 +75,7 @@ export const CollectionList = ({ handleCollectionClick }) => {
                                                     edge="end"
                                                     // className="addNodeIcon"
                                                     className="dlrButton"
-                                                    style={{padding: "4px"}}
+                                                    style={{ padding: "4px" }}
                                                     onClick={() => handleCollectionClick(item)}>
                                                     <AddIcon />
                                                 </IconButton>
@@ -76,7 +88,11 @@ export const CollectionList = ({ handleCollectionClick }) => {
                                     </Collapse>
                                 ))
                             }
+                            
                         </TransitionGroup>
+                            {showHint &&
+                                <div>No collections available.</div>
+                            }
                     </List>
                 </Demo>
             </Grid>

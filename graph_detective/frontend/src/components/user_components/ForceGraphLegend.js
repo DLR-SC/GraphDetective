@@ -1,6 +1,6 @@
 import Stack from '@mui/material/Stack';
 
-const NodeEntry = ({ collectionName, color }) => {
+export const NodeEntry = ({ text, color, count }) => {
     return <div className="legendEntry">
         <Stack
             direction="row"
@@ -9,7 +9,7 @@ const NodeEntry = ({ collectionName, color }) => {
             spacing={1}
         >
             <div style={{ width: "10px", height: "10px", borderRadius: "50%", backgroundColor: color }} />
-            <div>{collectionName}</div>
+            <div>{text} {count !== undefined && (<span style={{color: "#757575", fontFamily: "Consolas,monaco,monospace" }}>({count})</span>)}</div>
         </Stack>
     </div>
 }
@@ -20,6 +20,23 @@ export const ForceGraphLegend = ({ graphData }) => {
     if (nodes === undefined || nodes.length === 0) {
         return <div />
     }
+
+    // Counting unique collections
+    var collectionCounts = {};
+
+    // Iterate through the array
+    nodes.forEach(function(node) {
+        if (node.hasOwnProperty("collection")) {
+            // Check if the name already exists in the dictionary
+            if (collectionCounts[node.collection]) {
+                // Increment the count if the name already exists
+                collectionCounts[node.collection]++;
+            } else {
+                // Initialize the count to 1 if the name doesn't exist
+                collectionCounts[node.collection] = 1;
+            }
+        }
+    });
 
     // Extract unique collection names and colours
     let collections = [];
@@ -44,8 +61,9 @@ export const ForceGraphLegend = ({ graphData }) => {
                 return (
                     <div key={index}>
                         <NodeEntry
-                            collectionName={collection.name}
+                            text={collection.name}
                             color={collection.color}
+                            count={collectionCounts[collection.name]}
                         />
                     </div>
                 )

@@ -19,7 +19,8 @@ import {
     PING_ENDPOINT,
     MODIFY_DATABASE_CONNECTION_ENDPOINT,
     GET_BACKEND_URL_ENDPOINT,
-    EXPAND_NODE_ENDPOINT
+    EXPAND_NODE_ENDPOINT,
+    EXPORT_GRAPHDATA_ENDPOINT
     //@ts-ignore
 } from '../endpoints.tsx';
 
@@ -255,16 +256,10 @@ export const PING = async () => {
 }
 
 export const MODIFY_DATABASE_CONNECTION = async (
-    database_file: object | undefined,
-    edges_file: object | undefined,
-    collection_map_file: object | undefined,
-    collection_views_file: object | undefined) => {
+    sc_file: object | undefined) => {
     const response = await axios.post(MODIFY_DATABASE_CONNECTION_ENDPOINT,
         {
-            database_file: database_file,
-            edges_file: edges_file,
-            collection_map_file: collection_map_file,
-            collection_views_file: collection_views_file
+            sc_file: sc_file
         }
     );
     return response.data;
@@ -280,6 +275,16 @@ export const EXPAND_NODE = async (
     const response = await axios.post(EXPAND_NODE_ENDPOINT,
         {
             nodeId: nodeId
+        }
+    );
+    return response.data;
+}
+
+export const EXPORT_GRAPHDATA = async (graphData: object, exportData: object) => {
+    const response = await axios.post(EXPORT_GRAPHDATA_ENDPOINT,
+        {
+            graph_data: graphData ? graphData : [],
+            export_data: exportData ? exportData : []
         }
     );
     return response.data;

@@ -51,7 +51,7 @@ export const AppHeader = ({
                                 </div>
                             ))}
                             <Stack orientation={"row"} sx={{ flexGrow: 1 }}>
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
                                     <EditDatabaseDialog
                                         title={"Edit Connection"}
                                         icon={<SettingsIcon />}

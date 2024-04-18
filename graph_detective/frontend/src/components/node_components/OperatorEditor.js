@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { MessageContext } from '../../contexts/MessageContext';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 const operatorOptions = [
   // Generic operators
@@ -25,6 +26,10 @@ const operatorOptions = [
   // },
   {
     "value": "alphabetic_starts_with", "label": "starts with",
+    "groupName": "Alphabetic", "groupKey": 1
+  },
+  {
+    "value": "alphabetic_is_in", "label": "contained in list",
     "groupName": "Alphabetic", "groupKey": 1
   },
   // {
@@ -51,6 +56,10 @@ const operatorOptions = [
   },
   {
     "value": "numeric_larger_or_equal", "label": "larger or equal",
+    "groupName": "Numeric", "groupKey": 2
+  },
+  {
+    "value": "numeric_is_in", "label": "contained in list",
     "groupName": "Numeric", "groupKey": 2
   },
 
