@@ -26,9 +26,9 @@ This repository provides the code for our Paper "Graph Detective - Comprehensive
 
 ##### UI Interface
 ###### Ontology View
-![Ontology View](./graph_detective/images/Ontology_GIF.gif)
+![Ontology View](./graph_detective/images/Ontology.gif)
 ###### Query Graph Visualization
-![GraphDetective Interface](./graph_detective/images/GD_Screenshot_InputArea.PNG?raw=true)
+![GraphDetective Interface](./graph_detective/images/GD_Screenshot_InputArea?raw=true)
 ###### Defining a QGV
 ![QGV 1](./graph_detective/images/QGV_1_GIF.gif)
 
@@ -38,13 +38,13 @@ This repository provides the code for our Paper "Graph Detective - Comprehensive
 ###### Query Graph Result
 ![GraphDetective Graph Result](./graph_detective/images/GD_Screenshot_DisplayArea_1.PNG?raw=true)
 ###### Navigating a graph result
-![Graph Result 1](./graph_detective/images/Graph_1_GIF.gif)
+![Graph Result 1](./graph_detective/images/Graph_2.gif)
 
 ###### Display Modes
-![Graph Result 2](./graph_detective/images/Graph_2_GIF.gif)
+![Graph Result 2](./graph_detective/images/Graph_1.gif)
 
 ###### Individual Node Expansion
-![Expanding Nodes](./graph_detective/images/Graph_Expansion_GIF.gif)
+![Expanding Nodes](./graph_detective/images/Graph_3.gif)
 
 ## Installation
 The application is divided into **Frontend** and **Backend**. They communicate via HTTPS and need to be installed and run individually. Furthermore, a **ArangoDB database** must be available.
