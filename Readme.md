@@ -1,6 +1,7 @@
 
 
 
+
 <h1 align="center">Welcome to GraphDetective </h1>
 <p align="center">
   <a href="https://img.shields.io/badge/Made%20with-Python-1f425f.svg">
@@ -19,17 +20,9 @@
 </p>
 
 
-This repository provides the code for our Demonstration Paper "Graph Detective - Comprehensive User Interface for Intuitive Graph Exploration and Analysis", submitted to [EACL2024](https://2024.eacl.org/calls/demos/). Video of system demonstration can be found on [YouTube](https://youtu.be/xUkV5h98lm4).
+This repository provides the code for our Paper "Graph Detective - Comprehensive User Interface for Intuitive Graph Exploration and Analysis", submitted to [DocEng 2024](https://doceng.org/doceng2024).
 
-> Graph databases are used across several domains due to the intuitive structure of graphs.
-> Yet, querying such graphs requires database
-> experts’ involvement, reducing accessibility to
-> non-experts. To address this issue, we present
-> GraphDetective, a web interface that offers an
-> intuitive entry point for graph data exploration,
-> where users can effortlessly create queries visually, eliminating the need for expertise in query
-> writing. After processing, the resulting graph
-> data is then rendered in an interactive 3D visualization. 
+> Graph databases are used across several domains due to the intuitive structure of graphs. Yet, querying such graphs requires database   experts’ involvement, reducing accessibility to non-experts. To address this issue, we present  GraphDetective, a web interface that  provides an intuitive entry point for graph data exploration, where users can create queries visually with little effort, eliminating  the need for expertise in query writing. After processing, the resulting query output (a graph) is then rendered in an interactive 3D visualization for an easy interpretation. Our user evaluation revealed that even individuals inexperienced with graph databases or graph data in general could  satisfactorily access the graph data through our interface. Furthermore, experienced participants commented that they found our interface to be more efficient to use compared to writing explicit queries in a graph database query language.
 
 ##### UI Interface
 ###### Ontology View
@@ -56,9 +49,6 @@ This repository provides the code for our Demonstration Paper "Graph Detective -
 ## Installation
 The application is divided into **Frontend** and **Backend**. They communicate via HTTPS and need to be installed and run individually. Furthermore, a **ArangoDB database** must be available.
 
-### Database
-*GraphDetective* needs a graph on an ArangoDB database. In order to make this graph accessible to *GraphDetective*, please follow the steps defined in Section *Backend*.
-
 ### Frontend
 The frontend runs on React. To install all modules and run the app, execute the following commands from within the folder `./graph_detective/frontend/`:
 
@@ -79,47 +69,45 @@ Feel free to use your own package manager. Alternatively, a docker file is inclu
 > `docker build -f Dockerfile.api -t graph_detective_backend .`
 > `docker run -d -p 16001:16001 graph_detective_backend`
 
-##### Database Configuration
-The backend requires a total of four additional, distinct configuration files in the `./graph_detective/backend/config/` folder. Templates are already inclufed in the folder
-
-**`config.json`**: This is the main configuration for the database connection. It is a JSON file containint the following key/value pairs:
-
-> `{` <br/>
->	`"DB_HOST":"<url>",` <br/>
->	`"DB_PORT":"<port>",` <br/>
->	`"DB_NAME":"<database name>",` <br/>
->	`"DB_USER":"<user login>",` <br/>
->	`"DB_PASSWORD":"<user password>",` <br/>
->	`"DB_GRAPH":"<graph name>",` <br/>
->	`"DB_LABEL_ATTRIBUTE":"<default label to display in the graph. If unsure, use '_id' or '_key'"` <br/>
-> `}`
-
-**`collection_map.json`**: This file contains all collections, that should be displayed in the user interface. It further defines the display name for each collection. Example:
-> `{` <br/>
->	`"WikipediaArticle":"Wikipedia Article",` <br/>
->	`"person":"Person",` <br/>
->	`"sOmE_ColLeCtInOn":"Give it any name you want"` <br/>
-> `...` <br/>
-> `}`
-
-**`collection_views.json`**: This file defines any views that might be specified for any collection. Please besure to include all collections, that are specified in `collection_map.json` and provide an empty string if no view exists. Example:
-> `{` <br/>
->	`"WikipediaArticle":"Wiki_View",` <br/>
->	`"person":"person_view",` <br/>
->	`"sOmE_ColLeCtInOn":""` (no view available - add empty string) <br/>
-> `...` <br/>
-> `}`
-
-**`edges.json`**: Finally, you need to provide all edges that you would like to display and use in the graph. Any edge that is not defined here will not be usable or displayed in the graph. The format is as follows: keys represent the source collections, values are lists of target collections. This means, that each collection (...that has an edge) should be present in as a key exactly once. You do not need to provide the name of the edge. Example:
-> `{` <br/>
->	`"WikipediaArticle":["Person"],` <br/>
->	`"person":["sOmE_ColLeCtInOn"],` <br/>
->	`"sOmE_ColLeCtInOn":["Person", "sOmE_ColLeCtInOn"]` <br/>
-> `...` <br/>
-> `}`
-
-
 ## Basic Usage
+### Connecting to a database
+When first opening the aplication in a web browser, it is not connected to any database. GraphDetective requires a configuration file for an ArangoDB, which you as the user can provide straight through the interface. Here is what this `config.json` file should look like (adjust to match your own data and information):
+```json
+{
+	"db_config": {
+		"DB_HOST":"<url>",
+		"DB_PORT":"<port>",
+		"DB_NAME":"<name of the database>",
+		"DB_USER":"<user name to login>",
+		"DB_PASSWORD":"<password for the user name>",
+		"DB_GRAPH":"<name of the graph within the database",
+		"DB_LABEL_ATTRIBUTE":"<default label to display in the graph. If unsure, use '_id' or '_key'>"
+	},
+    "collection_map": {
+		"WikipediaArticle":"Wikipedia Article",
+		"person":"Person",
+		"sOmE_ColLeCtInOn":"Give it any name you want"
+		...
+    },
+    "edges": {
+		"WikipediaArticle":["Person"],
+		"person":["sOmE_ColLeCtInOn"],
+		"sOmE_ColLeCtInOn":["Person", "sOmE_ColLeCtInOn"]
+		...
+    },
+    "collection_views": {
+		"WikipediaArticle":"Wiki_View",
+		"person":"person_view",
+		...
+    }
+}
+```
+Here is an explanation for the entries:
+ - `db_config`: This is the main configuration for the database connection.
+ - `collection_map`: This contains all collections, that are displayed in the user interface. It further defines the display name for each collection. Any collection name not defined here will be unavailable in the frontend.
+ - `edges`: Provide all edges that you would like to display and use in the graph. Any edge that is not defined here will not be usable or displayed in the graph. The format is as follows: keys represent the source collections, values are lists of target collections. This means, that each collection (...that has an edge) should be present in as a key exactly once. You do not need to provide the name of the edge.
+
+
 ### Define a QGV
 A *Query Graph Visualization* is a visual graph structure that you want to query from the database. To define it, add collections onto the respective canvas area on the top and connect them as desired. Then hit execute.
 
