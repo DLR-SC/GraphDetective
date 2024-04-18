@@ -30,26 +30,25 @@ authors:
     family-names: Hecking
     affiliation: German Aerospace Center (DLR)
     orcid: 'https://orcid.org/0000-0003-0833-7989'
-
 repository-code: 'https://github.com/DLR-SC/GraphDetective'
 abstract: >-
-  Graph databases have become ubiquitous in various domains,
-  serving as an efficient storage of complex graph data.
-  Yet, querying such graphs remains challenging,
-  particularly for those unfamiliar with database concepts.
-  This hurdle often necessitates database experts'
-  involvement, leading to decision-making delays and reduced
-  accessibility. We introduce an interface to query ArangoDB
-  databases visually and render the graph data as an
-  interactive 3D visualization. Our interface offers an
-  intuitive entry point for graph data exploration where
-  users can effortlessly conduct ad-hoc queries without
-  needing expertise in writing database queries.
-  Additionally, we offer the option to export graph results
-  and link them to external tools, enabling further
-  analytical capabilities. The code is publicly available on
-  GitHub. A video of the system demonstration is available
-  on Youtube.
+  Graph databases are used across several domains due to the
+  intuitive structure of graphs. Yet, querying such graphs
+  requires database experts’ involvement, reducing
+  accessibility to non-experts. To address this issue, we
+  present GraphDetective, a web interface that provides an
+  intuitive entry point for graph data exploration, where
+  users can create queries visually with little effort,
+  eliminating the need for expertise in query writing. After
+  processing, the resulting query output (a graph) is then
+  rendered in an interactive 3D visualization for an easy
+  interpretation. Our user evaluation revealed that even
+  individuals inexperienced with graph databases or graph
+  data in general could satisfactorily access the graph data
+  through our interface. Furthermore, experienced
+  participants commented that they found our interface to be
+  more efficient to use compared to writing explicit queries
+  in a graph database query language.
 keywords:
   - graph
   - visual graph representation
